@@ -2,7 +2,7 @@ use crate::errors::Result;
 use sqlx::PgPool;
 use uuid::Uuid;
 
-pub async fn update_todo(pg_pool: &PgPool, todo_id: Uuid) -> Result<()> {
+pub async fn delete_todo(pg_pool: &PgPool, todo_id: Uuid) -> Result<()> {
     let row = sqlx::query(
         r#"
     delete from "todos"

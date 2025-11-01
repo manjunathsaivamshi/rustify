@@ -2,6 +2,7 @@ use crate::errors::{InternalSnafu, Result};
 use snafu::ResultExt;
 use sqlx::{postgres::PgPoolOptions, PgPool};
 mod todos;
+pub use todos::*;
 
 pub async fn establish_connection(db_url: String) -> Result<PgPool> {
     let pool = PgPoolOptions::new()
