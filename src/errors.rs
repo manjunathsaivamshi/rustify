@@ -14,6 +14,8 @@ pub enum Error {
         source: sqlx::Error,
         message: String,
     },
+    #[snafu(display("StandardError Occuered : {}", message))]
+    StandardError { message: String },
     #[snafu(display("RowNotFound: {}", message))]
     RowNotFoundError { message: String },
 }
@@ -28,6 +30,10 @@ impl IntoResponse for Error {
             Self::RowNotFoundError { message } => {
                 (StatusCode::NOT_FOUND, format!("message:{}", message))
             }
+            Self::StandardError { message } => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("message:{}", message),
+            ),
             _ => (
                 StatusCode::INTERNAL_SERVER_ERROR,
                 "Unkown Error".to_string(),
