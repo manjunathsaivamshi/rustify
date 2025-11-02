@@ -4,9 +4,7 @@ use axum::{
     http::StatusCode,
     response::{IntoResponse, Json},
 };
-use serde::{Deserialize, Serialize};
 use serde_json::json;
-use uuid::Uuid;
 
 pub async fn createt(
     Extension(pool): Extension<sqlx::PgPool>,
@@ -21,6 +19,7 @@ pub async fn createt(
                 is_completed: created_todo.is_completed,
                 created_at: created_todo.created_at,
                 updated_at: created_todo.updated_at,
+                created_by: created_todo.created_by,
             };
 
             (StatusCode::CREATED, Json(json!(response)))

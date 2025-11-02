@@ -1,0 +1,19 @@
+meta {
+  name: createtodo
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/createtodo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title":"firstTodo",
+    "created_by":"manju",
+    "description":"first todo"
+  }
+}

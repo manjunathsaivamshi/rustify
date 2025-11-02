@@ -1,16 +1,17 @@
 use crate::models::*;
 use axum::{
-    extract::Extension,
+    extract::{Extension, Path},
     http::StatusCode,
     response::{IntoResponse, Json},
 };
 use serde_json::json;
+use uuid::Uuid;
 
-pub async fn updatet(
+pub async fn fetcht(
     Extension(pool): Extension<sqlx::PgPool>,
-    Json(req): Json<UpdateTodoRequest>,
+    Path(id): Path<Uuid>,
 ) -> impl IntoResponse {
-    match crate::postgres::update_todo(&pool, req).await {
+    match crate::postgres::fetch_todo(&pool, id).await {
         Ok(updated_todo) => {
             let response = TodoResponse {
                 id: updated_todo.id,
@@ -24,9 +25,9 @@ pub async fn updatet(
 
             (StatusCode::CREATED, Json(json!(response)))
         }
-        Err(_) => (
+        Err(e) => (
             StatusCode::INTERNAL_SERVER_ERROR,
-            Json(json!({"error": "Failed to update Todo"})),
+            Json(json!({"error": format!("Failed to fetch Todo,{}",e)})),
         ),
     }
 }

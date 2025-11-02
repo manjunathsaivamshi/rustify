@@ -36,6 +36,7 @@ pub struct TodoResponse {
     pub id: Uuid,
     pub title: String,
     pub description: Option<String>,
+    pub created_by: String,
     pub is_completed: bool,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,

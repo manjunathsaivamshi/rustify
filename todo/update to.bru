@@ -1,0 +1,18 @@
+meta {
+  name: update to
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/udpatetodo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "todo_id":"e4cb8854-bc95-4d8b-a378-e8c9287ee9d4",
+    "title":"firstTodoUPdatedTwo"
+  }
+}

@@ -6,10 +6,10 @@ use sqlx::PgPool;
 pub async fn update_todo(pg_pool: &PgPool, update_todo_request: UpdateTodoRequest) -> Result<Todo> {
     let row = sqlx::query(
         r#"
-    update "todos"
-    set title = $1,
-    description =$2,
-    is_completed = $3
+    update todos
+    set title = COALESCE($1, title),
+        description = COALESCE($2, description),
+        is_completed = COALESCE($3, is_completed)
     where id = $4
     returning *
     "#,

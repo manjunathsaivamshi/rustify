@@ -1,9 +1,11 @@
 mod create;
 mod delete;
+mod fetch;
 mod update;
 
 pub use create::*;
 pub use delete::*;
+pub use fetch::*;
 pub use update::*;
 
 use crate::errors::Result;
